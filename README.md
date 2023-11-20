@@ -1,6 +1,8 @@
 # HeatIndicies
 
-The ECAD heat index code for UTCI is in the following github repositiories
+The ECAD heat index code for UTCI is in the following github repositiories.
+All the code and description provided
+
 
 [UTCI](https://github.com/ECA-D/UTCIr)
 
