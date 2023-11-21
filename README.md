@@ -8,7 +8,7 @@ All the code and description provided
 
 [PET](https://github.com/ECA-D/PETr)
 
-[GRIDCLIMIN](]https://github.com/ECA-D/gridclimind)
+[GRIDCLIMIN](https://github.com/ECA-D/gridclimind)
 
 [CLIMIND](https://github.com/ECA-D/climind)
 
