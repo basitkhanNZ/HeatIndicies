@@ -1,0 +1,42 @@
+Here are some 2D variables that would be worth saving:
+
+- grid info (XLAT,XLON, MAPFAC_M, HGT)
+Q2
+T2
+TH2
+PSFC
+U10
+V10
+RAINC (this one may be zero everywhere, if so, we do not need it)
+RAINSH
+RAINNC
+SNOW
+GRAUPELNC
+HAILBNC
+CLOUDFRA
+
+ACSWUPT
+ACSWUPTC
+ACSWDNT
+ACSWDNTC
+ACSWUPB
+ACSWDNB
+ACSWDNBC
+ACLWUPT
+ACLWUPTC
+ACLWDNT
+ACLWDNTC
+ACLWUPB
+ACLWUPBC
+ACLWDNB
+ACLWDNBC
+
+OLR
+QFX
+HFX
+LH
+ACHFX
+ACLHF
+
+SST
+
