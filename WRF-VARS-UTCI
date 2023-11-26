@@ -1,0 +1,27 @@
+# WRF Vrianbles for calculating UTCI
+
+
+**float ACSWDNB(Time, south_north, west_east) ;**
+                ACSWDNB:FieldType = 104 ;
+                ACSWDNB:MemoryOrder = "XY " ;
+                ACSWDNB:description = "ACCUMULATED DOWNWELLING SHORTWAVE FLUX AT BOTTOM" ;
+                ACSWDNB:units = "J m-2" ;
+                ACSWDNB:stagger = "" ;
+
+
+
+        **float SWDNB(Time, south_north, west_east) ;**
+                SWDNB:FieldType = 104 ;
+                SWDNB:MemoryOrder = "XY " ;
+                SWDNB:description = "INSTANTANEOUS DOWNWELLING SHORTWAVE FLUX AT BOTTOM" ;
+                SWDNB:units = "W m-2" ;
+
+
+
+        **float SWDOWN(Time, south_north, west_east) ;**
+                SWDOWN:FieldType = 104 ;
+                SWDOWN:MemoryOrder = "XY " ;
+                SWDOWN:description = "DOWNWARD SHORT WAVE FLUX AT GROUND SURFACE" ;
+                SWDOWN:units = "W m-2" ;
+                SWDOWN:stagger = "" ;
+                SWDOWN:coordinates = "XLONG XLAT XTIME" ;
