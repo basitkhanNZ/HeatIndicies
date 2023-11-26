@@ -1,8 +1,58 @@
-This file contains  the followning
+#VAR LSIT TO CALCULATE UTCI - ( ECAD Coopernicus approach)
+
+netcdf rh_0.25deg_regular_1979-2018_sub {
+dimensions:
+        time = UNLIMITED ; // (14610 currently)
+        longitude = 21 ;
+        latitude = 29 ;
+variables:
+        **double time(time) ;**
+                time:standard_name = "time" ;
+                time:long_name = "time" ;
+                time:units = "hours since 1900-01-01 00:00:0.0" ;
+                time:calendar = "gregorian" ;
+                time:axis = "T" ;
+        **double longitude(longitude) ;**
+                longitude:standard_name = "longitude" ;
+                longitude:long_name = "longitude" ;
+                longitude:units = "degrees_east" ;
+                longitude:axis = "X" ;
+        **double latitude(latitude) ;**
+                latitude:standard_name = "latitude" ;
+                latitude:long_name = "latitude" ;
+                latitude:units = "degrees_north" ;
+                latitude:axis = "Y" ;
+        **float rh(time, latitude, longitude) ;**
+                rh:long_name = "Relative Humidity" ;
+                rh:units = "%" ;
+                rh:_FillValue = -999.f ;
+                rh:missing_value = -999.f ;
+
+        **float rs(time, latitude, longitude) ;**
+                rs:standard_name = "surface_downwelling_shortwave_flux_in_air" ;
+                rs:long_name = "Surface solar radiation downwards" ;
+                rs:units = "MJ m**-2" ;
+                rs:_FillValue = -32767.f ;
+                rs:missing_value = -32767.f ;
+
+
+        **float ws(time, latitude, longitude) ;**
+                ws:_FillValue = -32767.f ;
+                ws:missing_value = -32767.f
+
+        **float tx(time, latitude, longitude) ;**
+                tx:standard_name = "tx" ;
+                tx:long_name = "2 metre temperature" ;
+                tx:units = "K" ;
+                tx:_FillValue = -32767.f ;
+                tx:missing_value = -32767.f ;
+
+        **float tn(time, latitude, longitude) ;**
+                tn:standard_name = "tn" ;
+                tn:long_name = "2 metre temperature" ;
+                tn:units = "K" ;
+                tn:_FillValue = -32767.f ;
+                tn:missing_value = -32767.f ;
 
 
 
-
-
-
-https://github.com/ECA-D/PETr
