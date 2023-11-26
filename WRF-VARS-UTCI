@@ -1,3 +1,4 @@
+
 # WRF Vrianbles for calculating UTCI
 
 
@@ -25,3 +26,10 @@
                 SWDOWN:units = "W m-2" ;
                 SWDOWN:stagger = "" ;
                 SWDOWN:coordinates = "XLONG XLAT XTIME" ;
+
+        **float SWNORM(Time, south_north, west_east) ;**
+                SWNORM:FieldType = 104 ;
+                SWNORM:MemoryOrder = "XY " ;
+                SWNORM:description = "NORMAL SHORT WAVE FLUX AT GROUND SURFACE (SLOPE-DEPENDENT)" ;
+                SWNORM:units = "W m-2" ;
+
