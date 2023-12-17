@@ -28,13 +28,14 @@ where
       t2 = T2 variable from wrf
       psfc = surface pressure from WRF
 
-!!! cdo expr,'rhom=((pressure/(8.314*T))*(1/((1-Q)/(Q*0.02896)+(1/0.01802))))' ifile.nc rhom.nc
-cdo expr,'rh2= Q2 / ( (379.90516 / PSFC) * exp( 17.2693882 * (T2 - 273.16) / (T2 - 35.86)) )' q2_t2_psfc.nc wrf_monsoon_HIS_RH2_2008.nc
+      i) RH approximation used for WRF output  
+      cdo expr,'rh2= Q2 / ( (379.90516 / PSFC) * exp( 17.2693882 * (T2 - 273.16) / (T2 - 35.86)) )' q2_t2_psfc.nc wrf_monsoon_HIS_RH2_2008.nc
+
+      ii.  Another approximation used to calc RH from pressure, specific humidity and temperature
+      cdo expr,'rhom=((pressure/(8.314*T))*(1/((1-Q)/(Q*0.02896)+(1/0.01802))))' ifile.nc rhom.nc
 
 b. Calculate daily RH avarage from 3 hourly-interval input file
-
 ncra --mro -O -d XTIME,,,8 wrf_monsoon_HIS_RH_2008.nc monsoon_HIS_RH_2008_dailyAvg.nc
-
 
 3. Calculate minimum daily temperature from 3hourly inteval input file
 cdo daymin wrf_monsoon_HIS_T2_2008.nc wrf_monsoon_HIS_T2_2008_dailyMini.nc
