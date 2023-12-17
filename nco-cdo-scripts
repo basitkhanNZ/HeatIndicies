@@ -1,10 +1,15 @@
 
-Calculate daily avarage from 3hourly interval input file
+##some very usefule 
+https://code.mpimet.mpg.de/projects/cdo/wiki/FAQ#How-can-I-select-variables-and-save-it-to-a-new-file
 
-1. Solar radiation
+
+
+## Calculate daily avarage from 3hourly interval input file
+
+###1. Solar radiation
 ncra --mro -O -d XTIME,,,8 wrf_monsoon_HIS_SWDOWN_2008.nc monsoon_HIS_SWDOWN_2008_dailyAvg.nc
 
-2. Wind speed, 
+###2. Wind speed, 
 a. Merge netCDF files containing u10 and v10
 cdo -O -merge  wrf_monsoon_HIS_U10_2008.nc wrf_monsoon_HIS_V10_2008.nc wind.nc
 
@@ -14,7 +19,7 @@ cdo -O -expr,'ws=sqrt(U10*U10+V10*V10)' -selname,U10,V10 wind.nc wrf_monsoon_HIS
 Calculate daily avarage from 3hourly interval input file
 ncra --mro -O -d XTIME,,,8 wrf_monsoon_HIS_WS_2008.nc monsoon_HIS_WS_2008_dailyAvg.nc
 
-3. Relative humidity
+###3. Relative humidity
 a. Calculate rh from Q2, T2 and SPFC
 ! define relative humidity matching the algorithm used for hindcasts
 let pq0 = 379.90516
@@ -37,20 +42,20 @@ where
 b. Calculate daily RH avarage from 3 hourly-interval input file
 ncra --mro -O -d XTIME,,,8 wrf_monsoon_HIS_RH_2008.nc monsoon_HIS_RH_2008_dailyAvg.nc
 
-3. Calculate minimum daily temperature from 3hourly inteval input file
+###4. Calculate minimum daily temperature from 3hourly inteval input file
 cdo daymin wrf_monsoon_HIS_T2_2008.nc wrf_monsoon_HIS_T2_2008_dailyMini.nc
 
 With temstamp of the start of the day,
 cdo --timestat_date first daymax wrf_monsoon_HIS_T2_2008.nc wrf_monsoon_HIS_T2_2008_dailyMaxi-first.nc
 
-4. Calculate maximum daily temperature from 3 hourly interval input file
+###5. Calculate maximum daily temperature from 3 hourly interval input file
 cdo daymax wrf_monsoon_HIS_T2_2008.nc wrf_monsoon_HIS_T2_2008_dailyMaxi.nc
 
 With timestamp of the start of the day,
 cdo --timestat_date first daymin wrf_monsoon_HIS_T2_2008.nc wrf_monsoon_HIS_T2_2008_dailyMini-first.nc
 
-----------------------------------------------
-Auxiliary/explorative cdo scripts
+##----------------------------------------------
+##Auxiliary/explorative cdo scripts
 
 1. Show times in the date formate i.e 2008-10-28T00:00:00
 cdo showtimestamp wrf_monsoon_HIS_T2_2008.nc       
