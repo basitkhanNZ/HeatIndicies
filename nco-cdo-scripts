@@ -1,22 +1,58 @@
 
-1. Calculate daily avarage from 3hourly interval input file
+Calculate daily avarage from 3hourly interval input file
 
-a. Solar radiation
+1. Solar radiation
 ncra --mro -O -d XTIME,,,8 wrf_monsoon_HIS_SWDOWN_2008.nc monsoon_HIS_SWDOWN_2008_dailyAvg.nc
 
-b. Wind speed
+2. Wind speed, 
+a. Merge netCDF files containing u10 and v10
+cdo -O -merge  wrf_monsoon_HIS_U10_2008.nc wrf_monsoon_HIS_V10_2008.nc wind.nc
+
+b. Calculate wind speed with u10 and v10
+cdo -O -expr,'ws=sqrt(U10*U10+V10*V10)' -selname,U10,V10 wind.nc wrf_monsoon_HIS_WS_2008.nc
+
+Calculate daily avarage from 3hourly interval input file
 ncra --mro -O -d XTIME,,,8 wrf_monsoon_HIS_WS_2008.nc monsoon_HIS_WS_2008_dailyAvg.nc
-c. Relative humidity
+
+3. Relative humidity
+a. Calculate rh from Q2, T2 and SPFC
+! define relative humidity matching the algorithm used for hindcasts
+let pq0 = 379.90516
+let a2 = 17.2693882
+let a3 = 273.16
+let a4 = 35.86
+let /title="relative humidity" /units="fraction" f_rh2 = q2 / ( (pq0 / psfc) * exp(a2 * (t2 - a3) / (t2 - a4)) )
+
+where 
+      q2 = Q2 variable from wrf
+      t2 = T2 variable from wrf
+      psfc = surface pressure from WRF
+
+!!! cdo expr,'rhom=((pressure/(8.314*T))*(1/((1-Q)/(Q*0.02896)+(1/0.01802))))' ifile.nc rhom.nc
+cdo expr,'rh2= Q2 / ( (379.90516 / PSFC) * exp( 17.2693882 * (T2 - 273.16) / (T2 - 35.86)) )' q2_t2_psfc.nc wrf_monsoon_HIS_RH2_2008.nc
+
+b. Calculate daily RH avarage from 3 hourly-interval input file
+
 ncra --mro -O -d XTIME,,,8 wrf_monsoon_HIS_RH_2008.nc monsoon_HIS_RH_2008_dailyAvg.nc
 
 
-2. Calculate minimum daily temperature from 3hourly inteval input file
+3. Calculate minimum daily temperature from 3hourly inteval input file
+cdo daymin wrf_monsoon_HIS_T2_2008.nc wrf_monsoon_HIS_T2_2008_dailyMini.nc
+
+With temstamp of the start of the day,
+cdo --timestat_date first daymax wrf_monsoon_HIS_T2_2008.nc wrf_monsoon_HIS_T2_2008_dailyMaxi-first.nc
+
+4. Calculate maximum daily temperature from 3 hourly interval input file
+cdo daymax wrf_monsoon_HIS_T2_2008.nc wrf_monsoon_HIS_T2_2008_dailyMaxi.nc
+
+With timestamp of the start of the day,
+cdo --timestat_date first daymin wrf_monsoon_HIS_T2_2008.nc wrf_monsoon_HIS_T2_2008_dailyMini-first.nc
 
 
+----------------------------------------------
+Auxiliary/explorative cdo scripts
 
-3. Calculate maximum daily temperature from 3 hourly interval input file
-
-
-4
+1. Show times in the date formate i.e 2008-10-28T00:00:00
+cdo showtimestamp wrf_monsoon_HIS_T2_2008.nc       
 
 
