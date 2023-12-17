@@ -1,0 +1,22 @@
+
+1. Calculate daily avarage from 3hourly interval input file
+
+a. Solar radiation
+ncra --mro -O -d XTIME,,,8 wrf_monsoon_HIS_SWDOWN_2008.nc monsoon_HIS_SWDOWN_2008_dailyAvg.nc
+
+b. Wind speed
+ncra --mro -O -d XTIME,,,8 wrf_monsoon_HIS_WS_2008.nc monsoon_HIS_WS_2008_dailyAvg.nc
+c. Relative humidity
+ncra --mro -O -d XTIME,,,8 wrf_monsoon_HIS_RH_2008.nc monsoon_HIS_RH_2008_dailyAvg.nc
+
+
+2. Calculate minimum daily temperature from 3hourly inteval input file
+
+
+
+3. Calculate maximum daily temperature from 3 hourly interval input file
+
+
+4
+
+
