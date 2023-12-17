@@ -49,7 +49,6 @@ cdo daymax wrf_monsoon_HIS_T2_2008.nc wrf_monsoon_HIS_T2_2008_dailyMaxi.nc
 With timestamp of the start of the day,
 cdo --timestat_date first daymin wrf_monsoon_HIS_T2_2008.nc wrf_monsoon_HIS_T2_2008_dailyMini-first.nc
 
-
 ----------------------------------------------
 Auxiliary/explorative cdo scripts
 
