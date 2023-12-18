@@ -1,3 +1,4 @@
+
 # HeatIndicies
 
 The ECAD heat index code for UTCI is in the following github repositiories.
@@ -13,5 +14,9 @@ All the code and description provided
 [CLIMIND](https://github.com/ECA-D/climind)
 
 [scPDSIr](https://github.com/ECA-D/scPDSIr)
+
+
+
+[wrf_diagnostics_fortran_functions](https://github.com/wrf-model/WRF/blob/master/phys/module_diag_functions.F)
 
 
