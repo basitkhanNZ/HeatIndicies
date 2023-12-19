@@ -16,10 +16,41 @@ cdo -O -merge  wrf_monsoon_HIS_U10_2008.nc wrf_monsoon_HIS_V10_2008.nc wind.nc
 b. Calculate wind speed with u10 and v10
 cdo -O -expr,'ws=sqrt(U10*U10+V10*V10)' -selname,U10,V10 wind.nc wrf_monsoon_HIS_WS_2008.nc
 
-Calculate daily avarage from 3hourly interval input file
+Calculate daily avarage windspeed from 3hourly interval input file
 ncra --mro -O -d XTIME,,,8 wrf_monsoon_HIS_WS_2008.nc monsoon_HIS_WS_2008_dailyAvg.nc
 
 ###3. Relative humidity
+  FUNCTION calc_rh ( p, t, qv ) result ( rh )
+    
+    IMPLICIT NONE
+ 
+    REAL, INTENT(IN) :: p, t, qv
+    REAL :: rh
+
+    ! Local
+    ! -----
+    REAL, PARAMETER :: pq0=379.90516
+    REAL, PARAMETER :: a2=17.2693882
+    REAL, PARAMETER :: a3=273.16
+    REAL, PARAMETER :: a4=35.86
+    REAL, PARAMETER :: rhmin=1.
+    REAL :: q, qs
+    INTEGER :: i,j,k
+  
+    ! Following algorithms adapted from WRFPOST
+    ! May want to substitute with another later
+    ! -----------------------------------------
+      q=qv/(1.0+qv)
+      qs=pq0/p*exp(a2*(t-a3)/(t-a4))
+      rh=100.*q/qs
+      IF (rh .gt. 100.) THEN
+        rh=100.
+      ELSE IF (rh .lt. rhmin) THEN
+        rh=rhmin
+      ENDIF
+
+  END FUNCTION calc_rh
+-----------------
 a. Calculate rh from Q2, T2 and SPFC
 ! define relative humidity matching the algorithm used for hindcasts
 let pq0 = 379.90516
@@ -34,7 +65,9 @@ where
       psfc = surface pressure from WRF
 
       i) RH approximation used for WRF output  
-      cdo expr,'rh2= Q2 / ( (379.90516 / PSFC) * exp( 17.2693882 * (T2 - 273.16) / (T2 - 35.86)) )' q2_t2_psfc.nc wrf_monsoon_HIS_RH2_2008.nc
+      !cdo expr,'rh2= ((Q2/(1.0+Q2)) / ( (379.90516 / PSFC) * exp( 17.2693882 * (T2 - 273.16) / (T2 - 35.86)) ) )*100.0' q2_t2_psfc.nc wrf_monsoon_HIS_RH2_2008.nc
+      cdo setmisstonn -setvrange,1,100 -expr,'rh2= ((Q2/(1.0+Q2)) / ( (379.90516 / PSFC) * exp( 17.2693882 * (T2 - 273.16) / (T2 - 35.86)) ) )*100.0' q2_t2_psfc.nc wrf_monsoon_HIS_RH2_2008.nc
+      desc: value range is 1:100, any values outside range will be replaced with the nearest neighbour. 
 
       ii.  Another approximation used to calc RH from pressure, specific humidity and temperature
       cdo expr,'rhom=((PSFC/(8.314*T2))*(1/((1-Q2)/(Q2*0.02896)+(1/0.01802))))' ifile.nc rhom.nc
@@ -42,14 +75,14 @@ where
 b. Calculate daily RH avarage from 3 hourly-interval input file
 ncra --mro -O -d XTIME,,,8 wrf_monsoon_HIS_RH_2008.nc monsoon_HIS_RH_2008_dailyAvg.nc
 
-###4. Calculate minimum daily temperature from 3hourly inteval input file
-cdo daymin wrf_monsoon_HIS_T2_2008.nc wrf_monsoon_HIS_T2_2008_dailyMini.nc
+###4. Calculate maximum daily temperature from 3hourly inteval input file
+cdo daymax wrf_monsoon_HIS_T2_2008.nc wrf_monsoon_HIS_T2_2008_dailyMaxi.nc
 
 With temstamp of the start of the day,
 cdo --timestat_date first daymax wrf_monsoon_HIS_T2_2008.nc wrf_monsoon_HIS_T2_2008_dailyMaxi-first.nc
 
-###5. Calculate maximum daily temperature from 3 hourly interval input file
-cdo daymax wrf_monsoon_HIS_T2_2008.nc wrf_monsoon_HIS_T2_2008_dailyMaxi.nc
+###5. Calculate mainimum daily temperature from 3 hourly interval input file
+cdo daymax wrf_monsoon_HIS_T2_2008.nc wrf_monsoon_HIS_T2_2008_dailyMini.nc
 
 With timestamp of the start of the day,
 cdo --timestat_date first daymin wrf_monsoon_HIS_T2_2008.nc wrf_monsoon_HIS_T2_2008_dailyMini-first.nc
