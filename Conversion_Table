@@ -27,3 +27,25 @@ Example: convert 15 W*h to MJ:
 
 
 
+Eplanation
+One Watt equals one Joule per second.
+
+If the average Watts per meter squared over the course of an hour is 800 then
+
+800 W/m2 = 800 J/m2/Sec
+800 J/m2/Sec * 3600 Sec/Hour = 2,880,000 Joules/m2/Hour
+2,880,000 Joules/m2/Hour / 1,000,000 = 2.88 MJ/m2/Hour
+
+Note that for this specific case (hourly average to an hourly total)
+
+2.88 MJ/m2/Hour / 800 W/m2 = 0.0036
+
+therefore
+
+800 W/m2 * 0.0036 = 2.88 MJ/m2/Hour
+
+You could just use 0.0036 as a direct multiplier to get from W/m2 to MJ/m2/Hour.
+
+
+
+
