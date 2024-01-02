@@ -1,8 +1,8 @@
-
 ##some very usefule 
 https://code.mpimet.mpg.de/projects/cdo/wiki/FAQ#How-can-I-select-variables-and-save-it-to-a-new-file
 
 
+######## SCRIPT TO PROCESS RAW WRFOUT DATA TO FOR THE USE FOR UTCI RSCRIPTS FROM ECAD. #####
 
 ## Calculate daily avarage from 3hourly interval input file
 
@@ -93,12 +93,10 @@ cdo --timestat_date first daymin wrf_monsoon_HIS_T2_2008.nc wrf_monsoon_HIS_T2_2
 1. Show times in the date formate i.e 2008-10-28T00:00:00
 cdo showtimestamp wrf_monsoon_HIS_T2_2008.nc     
 
-# ---------------
-Extract first element of  each coordinate ariable record
-cdo selindex,1/777/1 wrf_monsoon_HIS_WS_2008_dailyAvg.nc  outfile-xlong 
-
-expl: 1: starting element,  777: last element, 1: stride.                        #fo longs;
-cdo selindex,1/344988/777 wrf_monsoon_HIS_WS_2008_dailyAvg.nc  outfile-xlat      #for lats;
+# -------------------------------------------------
+##Extract first element of  each coordinate Variable record
+cdo selindex,1/777/1 wrf_monsoon_HIS_WS_2008_dailyAvg.nc  outfile-xlong     # for longs, 1: first element,  777: last element, 1: stride.
+cdo selindex,1/344988/777 wrf_monsoon_HIS_WS_2008_dailyAvg.nc  outfile-xlat #for lats;
 
 # extract XLAT and XLONG fom  dailyAvg file, use nco instead
 ncks -v XLAT outfile-lats.nc  xlats.nc          # only 444 xlat values (first column of the matrix)
@@ -148,6 +146,22 @@ ncrename -h -O -v XTIME_bnds,time_bnds test-clean2-attrib1-2.nc test-clean2-attr
 
 # rename the final processed (PRO) file to the used for Rscript.
 mv test-clean2-attrib1-2-bnds.nc wrf_monsoon_HIS_PRO_WS_2008_dailyAvg.nc
+
+# reverse the latatitude to be compatible withe the ERA5 format.
+ncpdq -O -a '-latitude' test.nc testout.nc
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
