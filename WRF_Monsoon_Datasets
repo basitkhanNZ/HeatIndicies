@@ -1,0 +1,12 @@
+Following applies to both Historical and PGW runs
+
+1. Extract raw data for the following variables for all time-intervals that is  8xday for all 10 years = 8 x 365 x 10 =    values for each variable
+        T2, Q2, U10, V10, PSFC, SSWDN, SSWUP, LWDNB, LWUPB 
+
+2. Process daily mean (M), maximum(X) and minimum(N) values for all days = 3 x ndays in 10 years = min, max, mean value for each day for 10 years
+
+3. Process monthy average for each  time-interval = 8 values/month for 10 years i.e mean of 30 values for 00hrs, 03hrs, 06hrs, 09 hrs, 12hrs, 15hrs, 18hrs, 21hrs 
+
+4. Process monthly mean (M), maximum(X) and minimum(N) values for each variable = 3 values per month for 10 years = 360 values
+
+5. 
